@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ConsoleApp_ETA_eReceipts.Data.ReceiptEntity>
+
+@{
+    ViewData["Title"] = "Receipts";
+}
+
+<h2>Receipts</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Number</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.ReceiptNumber</td>
+                <td>@r.Status</td>
+                <td>@r.TotalAmount</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/Receipts/Details/@r.Id">View</a>
+                    <a class="btn btn-warning btn-sm" href="/Receipts/Edit/@r.Id">Edit</a>
+                    <form asp-action="Submit" asp-route-id="@r.Id" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-success btn-sm">Send</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

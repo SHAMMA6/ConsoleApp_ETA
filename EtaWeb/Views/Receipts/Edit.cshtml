@@ -1,0 +1,25 @@
+﻿@model ConsoleApp_ETA_eReceipts.Data.ReceiptEntity
+
+@{
+    ViewData["Title"] = "Edit Receipt";
+}
+
+<div class="container mt-4">
+    <h3>Edit Receipt: @Model.ReceiptNumber</h3>
+    <form asp-action="Edit" method="post">
+        <div class="mb-3">
+            <label class="form-label">Receipt Number</label>
+            <input asp-for="ReceiptNumber" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Currency</label>
+            <input asp-for="Currency" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Total Amount</label>
+            <input asp-for="TotalAmount" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

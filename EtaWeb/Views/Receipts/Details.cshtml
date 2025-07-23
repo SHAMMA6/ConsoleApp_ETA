@@ -1,0 +1,75 @@
+﻿@model ConsoleApp_ETA_eReceipts.Data.ReceiptEntity
+@{
+    ViewData["Title"] = "Receipt Details";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Receipt: @Model.ReceiptNumber</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="text-secondary">General Information</h5>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Date Issued</th>
+                    <td>@Model.DateTimeIssuedUtc</td>
+                </tr>
+                <tr>
+                    <th>Currency</th>
+                    <td>@Model.Currency</td>
+                </tr>
+                <tr>
+                    <th>Total Amount</th>
+                    <td>@Model.TotalAmount</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>@Model.Status</td>
+                </tr>
+            </table>
+
+            <h5 class="mt-4 text-secondary">Seller Info</h5>
+            <ul class="list-group mb-3">
+                <li class="list-group-item"><strong>RIN:</strong> @Model.Seller.Rin</li>
+                <li class="list-group-item"><strong>Company:</strong> @Model.Seller.CompanyTradeName</li>
+                <li class="list-group-item"><strong>Address:</strong> @Model.Seller.Street, @Model.Seller.RegionCity</li>
+            </ul>
+
+            <h5 class="mt-4 text-secondary">Items</h5>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.InternalCode</td>
+                            <td>@item.Description</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice</td>
+                            <td>@item.Total</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @if (!string.IsNullOrEmpty(Model.EtaResponseRaw))
+            {
+                <h5 class="mt-4 text-secondary">ETA Response</h5>
+                <pre class="bg-light p-3 rounded">@Model.EtaResponseRaw</pre>
+            }
+        </div>
+        <div class="card-footer text-end">
+            <a href="@Url.Action("Edit", "Receipts", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+            <a href="@Url.Action("Index", "Receipts")" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+</div>
